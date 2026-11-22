@@ -1,5 +1,6 @@
 package com.microservicio_login.levelup_MSlogin.config;
 
+import com.microservicio_login.levelup_MSlogin.security.CustomAccessDeniedHandler;
 import com.microservicio_login.levelup_MSlogin.security.JwtAuthenticationEntryPoint;
 import com.microservicio_login.levelup_MSlogin.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -49,7 +51,10 @@ public class SecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(unauthorizedHandler)
+                        .accessDeniedHandler(accessDeniedHandler)
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Endpoints publicos de autenticacion y validacion
@@ -61,6 +66,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
+
+                        // Dispatch de error
+                        .requestMatchers("/error").permitAll()
 
                         // Endpoints de gestion de usuarios protegidos para Administrador
                         .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN")
