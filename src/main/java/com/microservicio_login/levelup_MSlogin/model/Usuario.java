@@ -25,6 +25,7 @@ public class Usuario {
     private String correo;
 
     @Column(nullable = false)
+    @com.fasterxml.jackson.annotation.JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String contrasena;
 
     @Column(length = 30)

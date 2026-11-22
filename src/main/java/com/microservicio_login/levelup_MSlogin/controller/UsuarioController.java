@@ -36,6 +36,25 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.obtenerPorId(id));
     }
 
+    @PostMapping
+    @Operation(summary = "Crear nuevo usuario", description = "Crea un usuario desde el panel de administración.")
+    public ResponseEntity<Usuario> crear(@RequestBody Map<String, String> body) {
+        return new ResponseEntity<>(usuarioService.crearUsuario(body), org.springframework.http.HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualizar usuario", description = "Actualiza los datos de un usuario por su ID.")
+    public ResponseEntity<Usuario> actualizar(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        return ResponseEntity.ok(usuarioService.actualizarUsuario(id, body));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar usuario", description = "Elimina un usuario del sistema.")
+    public ResponseEntity<ApiResponse<Void>> eliminar(@PathVariable Long id) {
+        usuarioService.eliminarUsuario(id);
+        return ResponseEntity.ok(ApiResponse.ok("Usuario eliminado correctamente", null));
+    }
+
     @PatchMapping("/{id}/rol")
     @Operation(summary = "Cambiar rol de usuario", description = "Modifica el rol de un usuario (ej: ROLE_ADMIN o ROLE_CLIENTE).")
     public ResponseEntity<ApiResponse<Void>> cambiarRol(
