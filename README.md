@@ -4,7 +4,7 @@ Microservicio backend especializado en **Autenticación, Registro, Gestión de R
 
 ---
 
-## 🛠️ Tecnologías y Características
+## Tecnologías y Características
 - **Puerto:** `8081`
 - **Base de Datos:** MySQL (`levelup_auth_db`)
 - **Seguridad:** Spring Security 6 Stateless + JJWT 0.12.6 (HMAC SHA-256)
@@ -33,18 +33,17 @@ Microservicio backend especializado en **Autenticación, Registro, Gestión de R
 
 ---
 
-## 🔑 Usuarios Iniciales Preconfigurados (`DataInitializer`)
+## Usuarios Iniciales Preconfigurados (`DataInitializer`)
 Al iniciar la aplicación por primera vez se cargan automáticamente:
 - **Administrador:** `admin@levelup.cl` / `Admin123!` (Rol: `ROLE_ADMIN`)
 - **Cliente:** `cliente@levelup.cl` / `User123!` (Rol: `ROLE_CLIENTE`)
 
 ---
 
-## 🚀 Cómo Ejecutar
+## Cómo Ejecutar
 
 ```powershell
 cd "C:\Users\PC\Desktop\levelup-MSlogin\levelup-MSlogin"
 $env:JAVA_HOME = "C:\Program Files\Java\jdk-17"
 .\mvnw.cmd spring-boot:run
 ```
-Swagger UI disponible en: 👉 **[http://localhost:8081/swagger-ui.html](http://localhost:8081/swagger-ui.html)**
